@@ -1,10 +1,8 @@
 (import (chicken format)
         (chicken string)
-        srfi-37
-        )
+        (chicken process-context)
+        srfi-37)
 
-(define (main args)
-  (printf "~A\n" (join-together args)))
 
 (define (join-together s)
   (define (inner-join s str)
@@ -15,3 +13,5 @@
                     (car s)
                     (format "~A ~A" str (car s))))))
   (inner-join s ""))
+
+(printf "~A\n" (join-together (command-line-arguments)))
