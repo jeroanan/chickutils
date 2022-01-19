@@ -3,25 +3,8 @@
         (chicken file)
         (chicken format))
 
+(import filesystem-macros)
 (declare (unit file-string))
-
-(define-syntax with-file-exists
-  (syntax-rules ()
-    ((with-file-exists file-name code)
-      (if (file-exists? file-name) 
-        code
-        (begin 
-          (printf "~A: No such file or directory\n" file-name)
-          (exit))))))
-
-(define-syntax with-file-readable
-  (syntax-rules ()
-    ((with-file-readable file-name code)
-      (if (file-readable? file-name) 
-        code
-        (begin 
-          (printf "~A: Cannot read file\n" file-name)
-          (exit))))))
 
 (define (_file->string file)
   (let ([fh (open-input-file file)])
