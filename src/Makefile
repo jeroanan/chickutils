@@ -1,14 +1,14 @@
 BINDIR=./bin
 OBJDIR=./obj
 
-$(BINDIR)/cat: $(OBJDIR)/cat.o $(OBJDIR)/file-string.o
-	chicken-csc -o $(BINDIR)/cat $(OBJDIR)/file-string.o $(OBJDIR)/cat.o
+$(BINDIR)/cat: $(OBJDIR)/cat.o $(OBJDIR)/file-utils.o 
+	chicken-csc -o $(BINDIR)/cat $(OBJDIR)/file-utils.o $(OBJDIR)/cat.o 
 
 $(OBJDIR)/cat.o: cat.scm
 	chicken-csc -o $(OBJDIR)/cat.o -c cat.scm
 
-$(OBJDIR)/file-string.o: file-string.scm
-	chicken-csc -o $(OBJDIR)/file-string.o -c file-string.scm
+$(OBJDIR)/file-utils.o: util/file-utils.scm 
+	chicken-csc -o $(OBJDIR)/file-utils.o -c util/file-utils.scm 
 
 clean:
 	rm -rf $(BINDIR) $(OBJDIR)
