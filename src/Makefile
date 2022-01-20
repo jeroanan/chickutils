@@ -2,7 +2,7 @@ BINDIR=./bin
 OBJDIR=./obj
 
 all: $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(BINDIR)/head $(BINDIR)/tac \
-	$(BINDIR)/true 
+	$(BINDIR)/tail $(BINDIR)/true 
 
 $(BINDIR)/cat: $(OBJDIR)/cat.o $(OBJDIR)/file-string.o 
 	chicken-csc -o $(BINDIR)/cat $(OBJDIR)/file-string.o $(OBJDIR)/cat.o 
@@ -27,6 +27,12 @@ $(BINDIR)/tac: $(OBJDIR)/tac.o $(OBJDIR)/file-string.o
 
 $(OBJDIR)/tac.o: tac.scm
 	chicken-csc -o $(OBJDIR)/tac.o -c tac.scm
+
+$(BINDIR)/tail: $(OBJDIR)/tail.o $(OBJDIR)/file-string.o $(OBJDIR)/list-util.o
+	chicken-csc -o $(BINDIR)/tail $(OBJDIR)/file-string.o $(OBJDIR)/list-util.o $(OBJDIR)/tail.o 
+
+$(OBJDIR)/tail.o: tail.scm
+	chicken-csc -o $(OBJDIR)/tail.o -c tail.scm
 	
 $(BINDIR)/true: true.scm
 	chicken-csc -o $(BINDIR)/true true.scm

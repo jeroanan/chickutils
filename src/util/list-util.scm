@@ -6,5 +6,3 @@
             res
             (loop (cdr lst) (flatten (list res (car lst))) (- n 1))))
     (loop lst (list) n))
-
-
