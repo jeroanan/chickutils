@@ -1,6 +1,6 @@
 (import (chicken process-context))
 
-(declare (uses file-string))
+(declare (uses file-util))
 
 (define (cat)
   (define (main-loop as)

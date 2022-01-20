@@ -4,8 +4,8 @@ OBJDIR=./obj
 all: $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(BINDIR)/head $(BINDIR)/tac \
 	$(BINDIR)/tail $(BINDIR)/true 
 
-$(BINDIR)/cat: $(OBJDIR)/cat.o $(OBJDIR)/file-string.o 
-	chicken-csc -o $(BINDIR)/cat $(OBJDIR)/file-string.o $(OBJDIR)/cat.o 
+$(BINDIR)/cat: $(OBJDIR)/cat.o $(OBJDIR)/file-util.o 
+	chicken-csc -o $(BINDIR)/cat $(OBJDIR)/file-util.o $(OBJDIR)/cat.o 
 
 $(OBJDIR)/cat.o: cat.scm
 	chicken-csc -o $(OBJDIR)/cat.o -c cat.scm
@@ -16,20 +16,20 @@ $(BINDIR)/false: false.scm
 $(BINDIR)/echo: echo.scm
 	chicken-csc -o $(BINDIR)/echo echo.scm
 
-$(BINDIR)/head: $(OBJDIR)/head.o $(OBJDIR)/file-string.o $(OBJDIR)/list-util.o
-	chicken-csc -o $(BINDIR)/head $(OBJDIR)/file-string.o $(OBJDIR)/list-util.o $(OBJDIR)/head.o 
+$(BINDIR)/head: $(OBJDIR)/head.o $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o
+	chicken-csc -o $(BINDIR)/head $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o $(OBJDIR)/head.o 
 
 $(OBJDIR)/head.o: head.scm
 	chicken-csc -o $(OBJDIR)/head.o -c head.scm
 
-$(BINDIR)/tac: $(OBJDIR)/tac.o $(OBJDIR)/file-string.o 
-	chicken-csc -o $(BINDIR)/tac $(OBJDIR)/file-string.o $(OBJDIR)/tac.o 
+$(BINDIR)/tac: $(OBJDIR)/tac.o $(OBJDIR)/file-util.o 
+	chicken-csc -o $(BINDIR)/tac $(OBJDIR)/file-util.o $(OBJDIR)/tac.o 
 
 $(OBJDIR)/tac.o: tac.scm
 	chicken-csc -o $(OBJDIR)/tac.o -c tac.scm
 
-$(BINDIR)/tail: $(OBJDIR)/tail.o $(OBJDIR)/file-string.o $(OBJDIR)/list-util.o
-	chicken-csc -o $(BINDIR)/tail $(OBJDIR)/file-string.o $(OBJDIR)/list-util.o $(OBJDIR)/tail.o 
+$(BINDIR)/tail: $(OBJDIR)/tail.o $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o
+	chicken-csc -o $(BINDIR)/tail $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o $(OBJDIR)/tail.o 
 
 $(OBJDIR)/tail.o: tail.scm
 	chicken-csc -o $(OBJDIR)/tail.o -c tail.scm
@@ -37,8 +37,8 @@ $(OBJDIR)/tail.o: tail.scm
 $(BINDIR)/true: true.scm
 	chicken-csc -o $(BINDIR)/true true.scm
 	
-$(OBJDIR)/file-string.o: util/file-string.scm filesystem-macros.so
-	chicken-csc -c util/file-string.scm -o $(OBJDIR)/file-string.o 
+$(OBJDIR)/file-util.o: util/file-util.scm filesystem-macros.so
+	chicken-csc -c util/file-util.scm -o $(OBJDIR)/file-util.o 
 
 $(OBJDIR)/list-util.o: util/list-util.scm
 	chicken-csc -c util/list-util.scm -o $(OBJDIR)/list-util.o 

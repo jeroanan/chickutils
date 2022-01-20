@@ -1,7 +1,7 @@
 (import (chicken process-context)
         (chicken string))
 
-(declare (uses file-string))
+(declare (uses file-util))
 
 (define (tac)
   (define (main-loop as)

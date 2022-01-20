@@ -1,7 +1,7 @@
 (import (chicken process-context)
         (chicken string))
 
-(declare (uses file-string)
+(declare (uses file-util)
          (uses list-util))
 
 ;; For now, this only prints the last five lines of a single file

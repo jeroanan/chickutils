@@ -4,7 +4,7 @@
         (chicken format))
 
 (import filesystem-macros)
-(declare (unit file-string))
+(declare (unit file-util))
 
 (define (_file->string file)
   (let ([fh (open-input-file file)])
