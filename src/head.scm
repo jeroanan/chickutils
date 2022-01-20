@@ -1,14 +1,8 @@
 (import (chicken process-context)
         (chicken string))
 
-(declare (uses file-string))
-
-(define (take n lst)
-    (define (loop lst res n)
-        (if (or (<= n 0) (= (length lst) 0))
-            res
-            (loop (cdr lst) (flatten (list res (car lst))) (- n 1))))
-    (loop lst (list) n))
+(declare (uses file-string)
+         (uses list-util))
 
 ;; For now, this only prints the first five lines of a single file
 (define (head)

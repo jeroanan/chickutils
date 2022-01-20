@@ -16,8 +16,8 @@ $(BINDIR)/false: false.scm
 $(BINDIR)/echo: echo.scm
 	chicken-csc -o $(BINDIR)/echo echo.scm
 
-$(BINDIR)/head: $(OBJDIR)/head.o $(OBJDIR)/file-string.o 
-	chicken-csc -o $(BINDIR)/head $(OBJDIR)/file-string.o $(OBJDIR)/head.o 
+$(BINDIR)/head: $(OBJDIR)/head.o $(OBJDIR)/file-string.o $(OBJDIR)/list-util.o
+	chicken-csc -o $(BINDIR)/head $(OBJDIR)/file-string.o $(OBJDIR)/list-util.o $(OBJDIR)/head.o 
 
 $(OBJDIR)/head.o: head.scm
 	chicken-csc -o $(OBJDIR)/head.o -c head.scm
@@ -33,6 +33,9 @@ $(BINDIR)/true: true.scm
 	
 $(OBJDIR)/file-string.o: util/file-string.scm filesystem-macros.so
 	chicken-csc -c util/file-string.scm -o $(OBJDIR)/file-string.o 
+
+$(OBJDIR)/list-util.o: util/list-util.scm
+	chicken-csc -c util/list-util.scm -o $(OBJDIR)/list-util.o 
 
 filesystem-macros.so: util/filesystem-macros.scm
 	chicken-csc -o filesystem-macros.so -s util/filesystem-macros.scm -j filesystem-macros
