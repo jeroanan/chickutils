@@ -1,8 +1,8 @@
 BINDIR=./bin
 OBJDIR=./obj
 
-all: $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(BINDIR)/head $(BINDIR)/tac \
-	$(BINDIR)/tail $(BINDIR)/true 
+all: $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(BINDIR)/head $(BINDIR)/hostid \
+	$(BINDIR)/tac $(BINDIR)/tail $(BINDIR)/true 
 
 $(BINDIR)/cat: $(OBJDIR)/cat.o $(OBJDIR)/file-util.o 
 	chicken-csc -o $(BINDIR)/cat $(OBJDIR)/file-util.o $(OBJDIR)/cat.o 
@@ -21,6 +21,9 @@ $(BINDIR)/head: $(OBJDIR)/head.o $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o
 
 $(OBJDIR)/head.o: head.scm
 	chicken-csc -o $(OBJDIR)/head.o -c head.scm
+
+$(BINDIR)/hostid: hostid.scm
+	chicken-csc -o $(BINDIR)/hostid hostid.scm
 
 $(BINDIR)/tac: $(OBJDIR)/tac.o $(OBJDIR)/file-util.o 
 	chicken-csc -o $(BINDIR)/tac $(OBJDIR)/file-util.o $(OBJDIR)/tac.o 
