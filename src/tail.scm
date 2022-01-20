@@ -7,9 +7,8 @@
 ;; For now, this only prints the last five lines of a single file
 (define (tail)
     (let* ([file-name (car (command-line-arguments))]
-           [file-contents (file->string file-name)]
-           [lines-split (string-split file-contents "\n" #t)]
-           [last-five (reverse (take 5 (reverse lines-split)))]
+           [lines (file->lines file-name)]
+           [last-five (reverse (take 5 (reverse lines)))]
            [output (string-intersperse last-five "\n")])
         (print output)))
 

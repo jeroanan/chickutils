@@ -23,4 +23,8 @@
     (with-file-readable file
       (_file->string file))))
 
+(define (file->lines file)
+  (let ([file-contents (file->string file)])
+    (string-split file-contents "\n" #t)))
+
          
