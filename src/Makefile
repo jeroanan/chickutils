@@ -47,7 +47,7 @@ filesystem-macros.so: util/filesystem-macros.scm
 	chicken-csc -o filesystem-macros.so -s util/filesystem-macros.scm -j filesystem-macros
 
 clean:
-	rm -rf $(BINDIR) $(OBJDIR) *.so
+	rm -rf $(BINDIR) $(OBJDIR) *.so *.import.scm
 
 $(shell mkdir -p $(BINDIR))
 $(shell mkdir -p $(OBJDIR))
