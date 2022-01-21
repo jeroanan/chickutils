@@ -2,7 +2,7 @@ BINDIR=./bin
 OBJDIR=./obj
 
 all: $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(BINDIR)/head $(BINDIR)/hostid \
-	$(BINDIR)/hostname $(BINDIR)/tac $(BINDIR)/tail $(BINDIR)/true 
+	$(BINDIR)/hostname $(BINDIR)/logname $(BINDIR)/tac $(BINDIR)/tail $(BINDIR)/true 
 
 $(BINDIR)/cat: $(OBJDIR)/cat.o $(OBJDIR)/file-util.o 
 	chicken-csc -o $(BINDIR)/cat $(OBJDIR)/file-util.o $(OBJDIR)/cat.o 
@@ -27,6 +27,9 @@ $(BINDIR)/hostid: hostid.scm
 
 $(BINDIR)/hostname: hostname.scm
 	chicken-csc -o $(BINDIR)/hostname hostname.scm
+
+$(BINDIR)/logname: logname.scm
+	chicken-csc -o $(BINDIR)/logname logname.scm
 
 $(BINDIR)/tac: $(OBJDIR)/tac.o $(OBJDIR)/file-util.o 
 	chicken-csc -o $(BINDIR)/tac $(OBJDIR)/file-util.o $(OBJDIR)/tac.o 
