@@ -21,3 +21,13 @@
     p = getpwuid(uid);
     C_return(p->pw_name);
     "))
+
+(define get-pw-group-id 
+    (foreign-lambda* int ((int uid))
+    "
+    struct passwd* p;
+
+    p = getpwuid(uid);
+    C_return(p->pw_gid);
+    "))
+

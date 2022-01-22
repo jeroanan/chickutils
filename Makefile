@@ -4,7 +4,7 @@ OBJDIR=./obj
 SRCDIR=./src
 
 all: builddir $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(BINDIR)/head $(BINDIR)/hostid \
-	$(BINDIR)/hostname $(BINDIR)/logname $(BINDIR)/tac $(BINDIR)/tail $(BINDIR)/true \
+	$(BINDIR)/hostname $(BINDIR)/id $(BINDIR)/logname $(BINDIR)/tac $(BINDIR)/tail $(BINDIR)/true \
 	$(BINDIR)/whoami
 
 $(BINDIR)/cat: $(OBJDIR)/cat.o $(OBJDIR)/file-util.o 
@@ -30,6 +30,9 @@ $(BINDIR)/hostid: $(SRCDIR)/hostid.scm
 
 $(BINDIR)/hostname: $(SRCDIR)/hostname.scm
 	chicken-csc -o $(BINDIR)/hostname $(BUILDDIR)/hostname.scm
+
+$(BINDIR)/id: $(SRCDIR)/id.scm
+	chicken-csc -o $(BINDIR)/id $(BUILDDIR)/id.scm $(OBJDIR)/unistd.o
 
 $(BINDIR)/logname: $(SRCDIR)/logname.scm $(OBJDIR)/unistd.o
 	chicken-csc -o $(BINDIR)/logname $(BUILDDIR)/logname.scm $(OBJDIR)/unistd.o
