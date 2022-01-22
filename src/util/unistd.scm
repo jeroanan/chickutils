@@ -7,6 +7,12 @@
     #include <pwd.h>
     ")
 
+(define geteuid
+    (foreign-lambda* int ()
+    "
+    C_return(geteuid());
+    "))
+
 (define get-pw-name 
     (foreign-lambda* c-string ((int uid))
     "
