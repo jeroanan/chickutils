@@ -3,8 +3,14 @@
         (chicken file)
         (chicken format))
 
-(import filesystem-macros)
 (declare (unit file-util))
+
+include(./filesystem-macros.scm.m4)
+;; m4 macro -- expanded at compile time from filesystem-macros
+MACRO_WITH_FILE_EXISTS
+
+;; m4 macro -- expanded at compile time from filesystem-macros
+MACRO_WITH_FILE_READABLE
 
 (define (_file->string file)
   (let ([fh (open-input-file file)])
