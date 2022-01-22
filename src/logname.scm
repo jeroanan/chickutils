@@ -1,20 +1,13 @@
 (import (chicken foreign))
 
-(foreign-declare 
-    "
-    #include <pwd.h>
-    ")
+(declare (uses get-pw-name))
 
-(define logname 
-    (foreign-lambda* c-string ()
+(define getuid
+    (foreign-lambda* int ()
     "
-    uid_t uid;
-    struct passwd* p;
-
-    uid = getuid();
-    p = getpwuid(uid);
-    C_return(p->pw_name);
+    C_return(getuid());
     "))
 
-(print (logname))
+(define uid (getuid))
+(print (get-pw-name uid))
 
