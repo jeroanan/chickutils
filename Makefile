@@ -3,9 +3,9 @@ BUILDDIR=./build
 OBJDIR=./obj
 SRCDIR=./src
 
-all: builddir $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(BINDIR)/head $(BINDIR)/hostid \
-	$(BINDIR)/hostname $(BINDIR)/id $(BINDIR)/logname $(BINDIR)/tac $(BINDIR)/tail $(BINDIR)/true \
-	$(BINDIR)/whoami
+all: builddir $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(BINDIR)/groups $(BINDIR)/head \
+	$(BINDIR)/hostid $(BINDIR)/hostname $(BINDIR)/id $(BINDIR)/logname $(BINDIR)/tac $(BINDIR)/tail \
+	$(BINDIR)/true $(BINDIR)/whoami
 
 $(BINDIR)/cat: $(OBJDIR)/cat.o $(OBJDIR)/file-util.o 
 	chicken-csc -o $(BINDIR)/cat $(OBJDIR)/file-util.o $(OBJDIR)/cat.o 
@@ -19,6 +19,9 @@ $(BINDIR)/false: $(SRCDIR)/false.scm
 $(BINDIR)/echo: $(SRCDIR)/echo.scm
 	chicken-csc -o $(BINDIR)/echo $(BUILDDIR)/echo.scm
 
+$(BINDIR)/groups: $(SRCDIR)/groups.scm $(OBJDIR)/grp.o
+	chicken-csc -o $(BINDIR)/groups $(BUILDDIR)/groups.scm $(OBJDIR)/grp.o
+
 $(BINDIR)/head: $(OBJDIR)/head.o $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o
 	chicken-csc -o $(BINDIR)/head $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o $(OBJDIR)/head.o 
 
@@ -31,8 +34,8 @@ $(BINDIR)/hostid: $(SRCDIR)/hostid.scm
 $(BINDIR)/hostname: $(SRCDIR)/hostname.scm
 	chicken-csc -o $(BINDIR)/hostname $(BUILDDIR)/hostname.scm
 
-$(BINDIR)/id: $(SRCDIR)/id.scm
-	chicken-csc -o $(BINDIR)/id $(BUILDDIR)/id.scm $(OBJDIR)/unistd.o
+$(BINDIR)/id: $(SRCDIR)/id.scm $(OBJDIR)/unistd.o $(OBJDIR)/grp.o
+	chicken-csc -o $(BINDIR)/id $(BUILDDIR)/id.scm $(OBJDIR)/unistd.o $(OBJDIR)/grp.o
 
 $(BINDIR)/logname: $(SRCDIR)/logname.scm $(OBJDIR)/unistd.o
 	chicken-csc -o $(BINDIR)/logname $(BUILDDIR)/logname.scm $(OBJDIR)/unistd.o
@@ -61,6 +64,9 @@ $(OBJDIR)/file-util.o: $(SRCDIR)/util/file-util.scm
 	mv file-util.tmp.scm file-util.scm; \
 	popd; \
 	chicken-csc -c $(BUILDDIR)/util/file-util.scm -o $(OBJDIR)/file-util.o 
+
+$(OBJDIR)/grp.o: $(SRCDIR)/util/grp.scm
+	chicken-csc -c $(BUILDDIR)/util/grp.scm -o $(OBJDIR)/grp.o 
 
 $(OBJDIR)/unistd.o: $(SRCDIR)/util/unistd.scm
 	chicken-csc -c $(BUILDDIR)/util/unistd.scm -o $(OBJDIR)/unistd.o 
