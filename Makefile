@@ -31,8 +31,8 @@ $(BINDIR)/hostid: $(SRCDIR)/hostid.scm
 $(BINDIR)/hostname: $(SRCDIR)/hostname.scm
 	chicken-csc -o $(BINDIR)/hostname $(BUILDDIR)/hostname.scm
 
-$(BINDIR)/logname: $(SRCDIR)/logname.scm $(OBJDIR)/get-pw-name.o
-	chicken-csc -o $(BINDIR)/logname $(BUILDDIR)/logname.scm $(OBJDIR)/get-pw-name.o
+$(BINDIR)/logname: $(SRCDIR)/logname.scm $(OBJDIR)/unistd.o
+	chicken-csc -o $(BINDIR)/logname $(BUILDDIR)/logname.scm $(OBJDIR)/unistd.o
 
 $(BINDIR)/tac: $(OBJDIR)/tac.o $(OBJDIR)/file-util.o 
 	chicken-csc -o $(BINDIR)/tac $(OBJDIR)/file-util.o $(OBJDIR)/tac.o 
@@ -49,8 +49,8 @@ $(OBJDIR)/tail.o: $(SRCDIR)/tail.scm
 $(BINDIR)/true: $(SRCDIR)/true.scm
 	chicken-csc -o $(BINDIR)/true $(BUILDDIR)/true.scm
 
-$(BINDIR)/whoami: $(SRCDIR)/whoami.scm $(OBJDIR)/get-pw-name.o
-	chicken-csc -o $(BINDIR)/whoami $(BUILDDIR)/whoami.scm  $(OBJDIR)/get-pw-name.o
+$(BINDIR)/whoami: $(SRCDIR)/whoami.scm $(OBJDIR)/unistd.o
+	chicken-csc -o $(BINDIR)/whoami $(BUILDDIR)/whoami.scm  $(OBJDIR)/unistd.o
 	
 $(OBJDIR)/file-util.o: $(SRCDIR)/util/file-util.scm 
 	pushd $(BUILDDIR)/util; \
@@ -59,8 +59,8 @@ $(OBJDIR)/file-util.o: $(SRCDIR)/util/file-util.scm
 	popd; \
 	chicken-csc -c $(BUILDDIR)/util/file-util.scm -o $(OBJDIR)/file-util.o 
 
-$(OBJDIR)/get-pw-name.o: $(SRCDIR)/util/get-pw-name.scm
-	chicken-csc -c $(BUILDDIR)/util/get-pw-name.scm -o $(OBJDIR)/get-pw-name.o 
+$(OBJDIR)/unistd.o: $(SRCDIR)/util/unistd.scm
+	chicken-csc -c $(BUILDDIR)/util/unistd.scm -o $(OBJDIR)/unistd.o 
 
 $(OBJDIR)/list-util.o: $(SRCDIR)/util/list-util.scm
 	chicken-csc -c $(BUILDDIR)/util/list-util.scm -o $(OBJDIR)/list-util.o 

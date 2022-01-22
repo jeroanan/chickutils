@@ -1,4 +1,4 @@
-(declare (unit get-pw-name))
+(declare (unit unistd))
 
 (import (chicken foreign))
 

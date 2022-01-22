@@ -1,6 +1,6 @@
 (import (chicken foreign))
 
-(declare (uses get-pw-name))
+(declare (uses unistd))
 
 (define getuid
     (foreign-lambda* int ()
