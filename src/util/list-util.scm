@@ -1,5 +1,8 @@
 (declare (unit list-util))
 
+(define first car)
+(define rest cdr)
+
 (define (take n lst)
     (define (loop lst res n)
         (if (or (<= n 0) (= (length lst) 0))

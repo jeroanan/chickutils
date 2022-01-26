@@ -4,8 +4,8 @@ OBJDIR=./obj
 SRCDIR=./src
 
 all: builddir $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(BINDIR)/groups $(BINDIR)/head \
-	$(BINDIR)/hostid $(BINDIR)/hostname $(BINDIR)/id $(BINDIR)/logname $(BINDIR)/tac $(BINDIR)/tail \
-	$(BINDIR)/true $(BINDIR)/whoami
+	$(BINDIR)/hostid $(BINDIR)/hostname $(BINDIR)/id $(BINDIR)/logname $(BINDIR)/nl $(BINDIR)/tac \
+	$(BINDIR)/tail $(BINDIR)/true $(BINDIR)/whoami
 
 $(BINDIR)/cat: $(SRCDIR)/cat.scm $(OBJDIR)/file-util.o 
 	chicken-csc -o $(BINDIR)/cat $(OBJDIR)/file-util.o $(BUILDDIR)/cat.scm 
@@ -30,6 +30,9 @@ $(BINDIR)/hostname: $(SRCDIR)/hostname.scm
 
 $(BINDIR)/id: $(SRCDIR)/id.scm $(OBJDIR)/unistd.o $(OBJDIR)/grp.o
 	chicken-csc -o $(BINDIR)/id $(BUILDDIR)/id.scm $(OBJDIR)/unistd.o $(OBJDIR)/grp.o
+
+$(BINDIR)/nl: $(SRCDIR)/nl.scm $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o
+	chicken-csc -o $(BINDIR)/nl $(OBJDIR)/file-util.o $(BUILDDIR)/nl.scm $(OBJDIR)/list-util.o
 
 $(BINDIR)/logname: $(SRCDIR)/logname.scm $(OBJDIR)/unistd.o
 	chicken-csc -o $(BINDIR)/logname $(BUILDDIR)/logname.scm $(OBJDIR)/unistd.o
