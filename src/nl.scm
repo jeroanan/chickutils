@@ -23,17 +23,9 @@
 (define (number-lines ls)
     (define (loop ls n)
         (when (> (length ls) 0)
-          (let* ([this-line (first ls)]
-                 [trimmed (string-trim this-line)]
-                 [line-number (number->string n)])
-            (if (string=? trimmed "")
-                (begin 
-                  (print this-line)
-                  (loop (rest ls) n))
-                (begin
-                  (printf "~A~A ~A\n" (make-string (- 6 (string-length line-number))) line-number this-line)
-                  (loop (rest ls) (+ n 1)))))))
-    (loop ls 1))
+          (let* ([this-line (first ls)])
+            (loop (rest ls) (print-line this-line n)))))
+    (loop ls 0))
             
 
 (define file-lines (get-lines (command-line-arguments) (list)))
