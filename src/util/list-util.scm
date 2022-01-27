@@ -1,6 +1,9 @@
 (declare (unit list-util))
 
 (define first car)
+(define (last l)
+  (first (reverse l)))
+
 (define rest cdr)
 
 (define (take n lst)

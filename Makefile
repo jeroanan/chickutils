@@ -3,9 +3,12 @@ BUILDDIR=./build
 OBJDIR=./obj
 SRCDIR=./src
 
-all: builddir $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(BINDIR)/groups $(BINDIR)/head \
-	$(BINDIR)/hostid $(BINDIR)/hostname $(BINDIR)/id $(BINDIR)/logname $(BINDIR)/nl $(BINDIR)/tac \
-	$(BINDIR)/tail $(BINDIR)/true $(BINDIR)/whoami
+all: builddir $(BINDIR)/basename $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(BINDIR)/groups \
+	$(BINDIR)/head $(BINDIR)/hostid $(BINDIR)/hostname $(BINDIR)/id $(BINDIR)/logname $(BINDIR)/nl \
+	$(BINDIR)/tac $(BINDIR)/tail $(BINDIR)/true $(BINDIR)/whoami
+
+$(BINDIR)/basename: $(SRCDIR)/basename.scm $(OBJDIR)/list-util.o
+	chicken-csc -o $(BINDIR)/basename $(SRCDIR)/basename $(OBJDIR)/list-util.o
 
 $(BINDIR)/cat: $(SRCDIR)/cat.scm $(OBJDIR)/file-util.o 
 	chicken-csc -o $(BINDIR)/cat $(OBJDIR)/file-util.o $(BUILDDIR)/cat.scm 
