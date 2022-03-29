@@ -7,8 +7,8 @@ all: builddir $(BINDIR)/basename $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(
 	$(BINDIR)/head $(BINDIR)/hostid $(BINDIR)/hostname $(BINDIR)/id $(BINDIR)/logname $(BINDIR)/nl \
 	$(BINDIR)/tac $(BINDIR)/tail $(BINDIR)/true $(BINDIR)/whoami
 
-$(BINDIR)/basename: $(SRCDIR)/basename.scm $(OBJDIR)/list-util.o
-	chicken-csc -o $(BINDIR)/basename $(SRCDIR)/basename $(OBJDIR)/list-util.o
+$(BINDIR)/basename: $(SRCDIR)/basename.scm $(OBJDIR)/cmdline-util.o $(OBJDIR)/list-util.o
+	chicken-csc -o $(BINDIR)/basename $(SRCDIR)/basename $(OBJDIR)/cmdline-util.o $(OBJDIR)/list-util.o
 
 $(BINDIR)/cat: $(SRCDIR)/cat.scm $(OBJDIR)/file-util.o 
 	chicken-csc -o $(BINDIR)/cat $(OBJDIR)/file-util.o $(BUILDDIR)/cat.scm 
@@ -64,6 +64,9 @@ $(OBJDIR)/grp.o: $(SRCDIR)/util/grp.scm
 
 $(OBJDIR)/unistd.o: $(SRCDIR)/util/unistd.scm
 	chicken-csc -c $(BUILDDIR)/util/unistd.scm -o $(OBJDIR)/unistd.o 
+
+$(OBJDIR)/cmdline-util.o: $(SRCDIR)/util/cmdline-util.scm $(OBJDIR)/list-util.o
+	chicken-csc -c $(BUILDDIR)/util/cmdline-util.scm $(OBJDIR)/list-util.o -o $(OBJDIR)/cmdline-util.o
 
 $(OBJDIR)/list-util.o: $(SRCDIR)/util/list-util.scm
 	chicken-csc -c $(BUILDDIR)/util/list-util.scm -o $(OBJDIR)/list-util.o 
