@@ -1,7 +1,7 @@
 (declare (unit list-util))
 
 (define first car)
-(define (second list) (take 1 (cdr list)))
+(define (second list) (list-ref list 1))
 
 (define (last l)
   (first (reverse l)))

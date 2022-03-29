@@ -11,6 +11,14 @@
   (any? (lambda (a) (string=? flag a))
         (command-line-arguments)))
 
+(define (get-command-line-flag-value flag)
+  (if (command-line-has-flag? flag)
+      (let ((sl (member flag (command-line-arguments))))
+           (if (< (length sl) 2)
+               ""
+               (second sl)))
+      ""))
+
 (define (get-command-line-without-flags flag-map)
   (define (loop flags i)
     (if (empty? flags) 
@@ -42,11 +50,24 @@
   (define (loop names) 
     (unless (empty? names) 
       (begin 
-        (print (get-basename (first names)))
+        (printf "~A~A" (string-chomp (get-basename (first names)) suffix) line-separator)
         (loop (rest names)))))
   (loop names))
 
+(define has-a-flag (command-line-has-flag? "-a"))
+(define has-s-flag (command-line-has-flag? "-s"))
+(define has-z-flag (command-line-has-flag? "-z"))
+
 (define names (get-command-line-without-flags flag-map))
+(define flag-suffix (get-command-line-flag-value "-s"))
+(define line-separator (if has-z-flag "\x00" "\n"))
+
+(define suffix (cond ((and has-a-flag (not has-s-flag)) "")
+                     ((and has-a-flag (not (string=? flag-suffix ""))) flag-suffix)  
+                     (not (string=? flag-suffix "") flag-suffix)  
+                     ((> (length names) 1) (last names))
+                     (else "")))
+
 (if (command-line-has-flag? "-a")
     (display-basenames names)
     (display-basenames (list (first names))))
