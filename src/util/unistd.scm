@@ -31,3 +31,11 @@
     C_return(p->pw_gid);
     "))
 
+(define gethostname
+    (foreign-lambda* c-string () 
+    "
+    char hostname[99];
+    int result;
+    result = gethostname(hostname, 99);
+    C_return(hostname);
+    "))

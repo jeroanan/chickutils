@@ -28,8 +28,8 @@ $(BINDIR)/head: $(SRCDIR)/head.scm $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o
 $(BINDIR)/hostid: $(SRCDIR)/hostid.scm
 	chicken-csc -o $(BINDIR)/hostid $(BUILDDIR)/hostid.scm
 
-$(BINDIR)/hostname: $(SRCDIR)/hostname.scm
-	chicken-csc -o $(BINDIR)/hostname $(BUILDDIR)/hostname.scm
+$(BINDIR)/hostname: $(SRCDIR)/hostname.scm $(OBJDIR)/unistd.o
+	chicken-csc -o $(BINDIR)/hostname $(BUILDDIR)/hostname.scm $(OBJDIR)/unistd.o
 
 $(BINDIR)/id: $(SRCDIR)/id.scm $(OBJDIR)/unistd.o $(OBJDIR)/grp.o
 	chicken-csc -o $(BINDIR)/id $(BUILDDIR)/id.scm $(OBJDIR)/unistd.o $(OBJDIR)/grp.o

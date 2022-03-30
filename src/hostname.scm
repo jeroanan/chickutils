@@ -1,13 +1,6 @@
 (import (chicken foreign)
         (chicken format))
 
-(define hostname
-    (foreign-lambda* c-string () 
-    "
-    char hostname[99];
-    int result;
-    result = gethostname(hostname, 99);
-    C_return(hostname);
-    "))
+(declare (uses unistd))
 
-(printf "~A\n" (hostname))
+(printf "~A\n" (gethostname))
