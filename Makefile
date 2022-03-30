@@ -16,8 +16,8 @@ $(BINDIR)/cat: $(SRCDIR)/cat.scm $(OBJDIR)/file-util.o
 $(BINDIR)/false: $(SRCDIR)/false.scm
 	chicken-csc -o $(BINDIR)/false $(BUILDDIR)/false.scm
 
-$(BINDIR)/echo: $(SRCDIR)/echo.scm
-	chicken-csc -o $(BINDIR)/echo $(BUILDDIR)/echo.scm
+$(BINDIR)/echo: $(SRCDIR)/echo.scm $(OBJDIR)/cmdline-util.o
+	chicken-csc -o $(BINDIR)/echo $(BUILDDIR)/echo.scm $(OBJDIR)/cmdline-util.o $(OBJDIR)/list-util.o
 
 $(BINDIR)/groups: $(SRCDIR)/groups.scm $(OBJDIR)/grp.o
 	chicken-csc -o $(BINDIR)/groups $(BUILDDIR)/groups.scm $(OBJDIR)/grp.o

@@ -3,6 +3,14 @@
         (chicken process-context)
         srfi-37)
 
+(declare (uses cmdline-util))
+
+(define flag-map (list 
+                    (list "-n" #f)))
+                    
+(define has-n-flag? (command-line-has-flag? "-n"))
+
+(define line-ending (if has-n-flag? "" "\n"))
 
 (define (join-together s)
   (define (inner-join s str)
@@ -14,4 +22,5 @@
                     (format "~A ~A" str (car s))))))
   (inner-join s ""))
 
-(printf "~A\n" (join-together (command-line-arguments)))
+(define echo-words (get-command-line-without-flags flag-map))
+(printf "~A~A" (join-together echo-words) line-ending)
