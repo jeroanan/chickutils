@@ -1,7 +1,6 @@
 (declare (uses grp))
 
-(import (chicken foreign)
-        (chicken format))
+(import (chicken format))
 
 (define number-of-groups (get-number-of-groups))
 (define group-ids (get-groups))
