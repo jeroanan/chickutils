@@ -13,6 +13,12 @@
     C_return(geteuid());
     "))
 
+(define getuid
+    (foreign-lambda* int ()
+    "
+    C_return(getuid());
+    "))
+
 (define get-pw-name 
     (foreign-lambda* c-string ((int uid))
     "
