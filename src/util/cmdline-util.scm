@@ -1,7 +1,8 @@
 (declare (unit cmdline-util))
 (declare (uses list-util))
 
-(import (chicken process-context))
+(import (chicken process-context)
+        (chicken format))
 
 (define (enforce-minimum-commmand-line-args n error-message)
   (if (< (length (command-line-arguments)) n)
@@ -18,6 +19,12 @@
                ""
                (second sl)))
       ""))
+
+(define (get-command-line-flag-value-number flag)
+  (let ((v (get-command-line-flag-value flag)))
+    (if (string->number v)
+        (string->number v)
+        (error (sprintf "Invalid number for flag ~A: '~A'" flag v)))))
 
 (define (get-command-line-without-flags flag-map)
   (define (loop flags i)
