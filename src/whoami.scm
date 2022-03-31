@@ -1,5 +1,3 @@
-(import (chicken foreign))
-
 (declare (uses unistd))
 
 (define euid (geteuid))
