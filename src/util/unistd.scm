@@ -39,3 +39,9 @@
     result = gethostname(hostname, 99);
     C_return(hostname);
     "))
+
+(define gethostid
+    (foreign-lambda* c-string () 
+    "char hex[10];
+    sprintf(hex, \"%x\", gethostid());
+    C_return(hex);"))

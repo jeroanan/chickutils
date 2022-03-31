@@ -25,8 +25,8 @@ $(BINDIR)/groups: $(SRCDIR)/groups.scm $(OBJDIR)/grp.o
 $(BINDIR)/head: $(SRCDIR)/head.scm $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o
 	chicken-csc -o $(BINDIR)/head $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o $(BUILDDIR)/head.scm 
 
-$(BINDIR)/hostid: $(SRCDIR)/hostid.scm
-	chicken-csc -o $(BINDIR)/hostid $(BUILDDIR)/hostid.scm
+$(BINDIR)/hostid: $(SRCDIR)/hostid.scm $(OBJDIR)/unistd.o
+	chicken-csc -o $(BINDIR)/hostid $(BUILDDIR)/hostid.scm $(OBJDIR)/unistd.o
 
 $(BINDIR)/hostname: $(SRCDIR)/hostname.scm $(OBJDIR)/unistd.o
 	chicken-csc -o $(BINDIR)/hostname $(BUILDDIR)/hostname.scm $(OBJDIR)/unistd.o
