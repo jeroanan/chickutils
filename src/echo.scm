@@ -1,6 +1,5 @@
 (import (chicken format)
         (chicken string)
-        (chicken process-context)
         srfi-37)
 
 (declare (uses cmdline-util))
