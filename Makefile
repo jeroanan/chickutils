@@ -22,8 +22,9 @@ $(BINDIR)/echo: $(SRCDIR)/echo.scm $(OBJDIR)/cmdline-util.o
 $(BINDIR)/groups: $(SRCDIR)/groups.scm $(OBJDIR)/grp.o
 	chicken-csc -o $(BINDIR)/groups $(BUILDDIR)/groups.scm $(OBJDIR)/grp.o
 
-$(BINDIR)/head: $(SRCDIR)/head.scm $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o
-	chicken-csc -o $(BINDIR)/head $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o $(BUILDDIR)/head.scm 
+$(BINDIR)/head: $(SRCDIR)/head.scm $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o $(OBJDIR)/cmdline-util.o
+	chicken-csc -o $(BINDIR)/head $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o $(BUILDDIR)/head.scm \
+		$(OBJDIR)/cmdline-util.o
 
 $(BINDIR)/hostid: $(SRCDIR)/hostid.scm $(OBJDIR)/unistd.o
 	chicken-csc -o $(BINDIR)/hostid $(BUILDDIR)/hostid.scm $(OBJDIR)/unistd.o
