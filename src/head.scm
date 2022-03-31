@@ -10,12 +10,14 @@
 
 (define has-n-flag? (command-line-has-flag? "-n"))
 
-;; TODO: if this number is negative it should print all
-;;       BUT that absolute number of lines.
 (define lines-to-print 
   (if has-n-flag? 
-      (string->number (get-command-line-flag-value "-n"))
+      (get-command-line-flag-value-number "-n")
       5))
+
+;; if lines-to-print is negative, then it should print all
+;; but the absolute number of lines.
+(define take-or-drop (if (< lines-to-print 0) drop take))
 
 (define files-to-print (get-command-line-without-flags flag-map))
 
@@ -23,7 +25,7 @@
 
 (define (head-file file-name)
   (let* ([lines (file->lines file-name)]
-         [first-lines (take lines-to-print lines)]
+         [first-lines (take-or-drop (abs lines-to-print) lines)]
          [output (string-intersperse first-lines "\n")])
     (when print-file-headers? (printf "==> ~A <==\n" file-name))
     (print output)))
