@@ -1,5 +1,4 @@
-(import (chicken foreign)
-        (chicken format))
+(import (chicken format))
 
 (declare (uses unistd))
 
