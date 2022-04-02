@@ -19,7 +19,7 @@
 (define lines-to-print 
   (if has-n-flag? 
       (get-command-line-flag-value-number "-n")
-      5))
+      10))
 
 (define bytes-to-print
   (if has-c-flag?
