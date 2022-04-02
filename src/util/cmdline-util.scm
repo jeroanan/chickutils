@@ -50,3 +50,9 @@
         [(eq? #f (member f2 (command-line-arguments))) #t]
         [(> (length (member f1 (command-line-arguments))) (length (member f2 (command-line-arguments)))) #t]
         [else #f]))
+
+(define (maybe-print-version-and-quit version-string)
+  (if (command-line-has-flag? "--version")
+      (begin 
+        (print version-string)
+        (exit 0))))
