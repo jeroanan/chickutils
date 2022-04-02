@@ -10,8 +10,9 @@ all: builddir $(BINDIR)/basename $(BINDIR)/cat $(BINDIR)/echo $(BINDIR)/false $(
 $(BINDIR)/basename: $(SRCDIR)/basename.scm $(OBJDIR)/cmdline-util.o $(OBJDIR)/list-util.o
 	chicken-csc -o $(BINDIR)/basename $(SRCDIR)/basename $(OBJDIR)/cmdline-util.o $(OBJDIR)/list-util.o
 
-$(BINDIR)/cat: $(SRCDIR)/cat.scm $(OBJDIR)/file-util.o 
-	chicken-csc -o $(BINDIR)/cat $(OBJDIR)/file-util.o $(BUILDDIR)/cat.scm 
+$(BINDIR)/cat: $(SRCDIR)/cat.scm $(OBJDIR)/file-util.o $(OBJDIR)/cmdline-util.o
+	chicken-csc -o $(BINDIR)/cat $(BUILDDIR)/cat.scm \
+		$(OBJDIR)/file-util.o $(OBJDIR)/list-util.o $(OBJDIR)/cmdline-util.o
 
 $(BINDIR)/false: $(SRCDIR)/false.scm
 	chicken-csc -o $(BINDIR)/false $(BUILDDIR)/false.scm
