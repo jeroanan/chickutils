@@ -38,12 +38,9 @@
 (define files-to-print (get-command-line-without-flags flag-map))
 
 (define print-file-headers? 
-  ;; TODO: GNU head uses the order of the -q and -v flags to establish precedence.
-  (cond 
-    (has-q-flag? #f)
-    (has-v-flag? #t)
-    ((> (length files-to-print) 1) #t)
-    (else #f)))
+  (if (and (not has-q-flag?) (not has-v-flag?))
+      (> (length files-to-print) 1)
+      (not (command-line-flag-comes-before? "-v" "-q"))))
 
 (define (head-by-lines file-name)
   (let* ([lines (file->lines file-name)]
@@ -55,9 +52,8 @@
   (let* ([file-str (file->string file-name)]
          ;; This is a bit of a hack.  It's not clear that it would work for binary files.
          [take-drop-extra-bytes (if (< bytes-to-print 0) -1 0)]
-         [first-bytes (list->string (take-or-drop-last (+ (abs bytes-to-print) take-drop-extra-bytes) (string->list file-str)))]
-         [output first-bytes])
-  output))
+         [first-bytes (list->string (take-or-drop-last (+ (abs bytes-to-print) take-drop-extra-bytes) (string->list file-str)))])
+  first-bytes))
 
 (define output-function (if has-c-flag? head-by-bytes head-by-lines))
 

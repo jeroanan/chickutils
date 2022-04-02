@@ -39,3 +39,14 @@
                   (loop (rest flags) (+ i 1)))
               (loop (rest flags) i)))))
   (drop (loop flag-map 0) (command-line-arguments)))
+
+(define (get-command-line-flags flag-map)
+  (let ([command-line-without-flags (get-command-line-without-flags flag-map)])
+    (take (- (length (command-line-arguments)) (length command-line-without-flags))
+          (command-line-arguments))))
+
+(define (command-line-flag-comes-before? f1 f2)
+  (cond [(eq? #f (member f1 (command-line-arguments))) #f]
+        [(eq? #f (member f2 (command-line-arguments))) #t]
+        [(> (length (member f1 (command-line-arguments))) (length (member f2 (command-line-arguments)))) #t]
+        [else #f]))
