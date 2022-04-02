@@ -32,5 +32,3 @@ MACRO_WITH_FILE_READABLE
 (define (file->lines file)
   (let ([file-contents (file->string file)])
     (string-split file-contents "\n" #t)))
-
-         
