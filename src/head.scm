@@ -5,6 +5,8 @@
          (uses list-util)
          (uses cmdline-util))
 
+(define version-string "2022.04.02.01")
+
 (define flag-map (list
                        (list "-n" #t)
                        (list "-c" #t)
@@ -67,5 +69,7 @@
       (head-file (car files))
       (loop (cdr files))))
   (loop files-to-print))
+
+(maybe-print-version-and-quit version-string)
 
 (head-files)
