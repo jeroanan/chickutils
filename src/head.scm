@@ -42,7 +42,7 @@
   (cond 
     (has-q-flag? #f)
     (has-v-flag? #t)
-    (length files-to-print > 1 #t)
+    ((> (length files-to-print) 1) #t)
     (else #f)))
 
 (define (head-by-lines file-name)
