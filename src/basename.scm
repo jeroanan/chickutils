@@ -4,6 +4,8 @@
 (declare (uses cmdline-util)
          (uses list-util))
 
+(define version-string "2022.04.02.01")
+
 (define flag-map (list 
                     (list "-a" #f)
                     (list "-s" #t)
@@ -38,6 +40,8 @@
                      (not (string=? flag-suffix "") flag-suffix)  
                      ((> (length names) 1) (last names))
                      (else "")))
+
+(maybe-print-version-and-quit version-string)
 
 (if (command-line-has-flag? "-a")
     (display-basenames names)
