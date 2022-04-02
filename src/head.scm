@@ -7,10 +7,14 @@
 
 (define flag-map (list
                        (list "-n" #t)
-                       (list "-c" #t)))
+                       (list "-c" #t)
+                       (list "-q" #f)
+                       (list "-v" #f)))
 
 (define has-n-flag? (command-line-has-flag? "-n"))
 (define has-c-flag? (command-line-has-flag? "-c"))
+(define has-q-flag? (command-line-has-flag? "-q"))
+(define has-v-flag? (command-line-has-flag? "-v"))
 
 (define lines-to-print 
   (if has-n-flag? 
@@ -33,7 +37,13 @@
 
 (define files-to-print (get-command-line-without-flags flag-map))
 
-(define print-file-headers? (> (length files-to-print) 1))
+(define print-file-headers? 
+  ;; TODO: GNU head uses the order of the -q and -v flags to establish precedence.
+  (cond 
+    (has-q-flag? #f)
+    (has-v-flag? #t)
+    (length files-to-print > 1 #t)
+    (else #f)))
 
 (define (head-by-lines file-name)
   (let* ([lines (file->lines file-name)]
