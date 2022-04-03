@@ -3,11 +3,12 @@
 (declare (uses file-util
                cmdline-util))
 
-(define version-string "2022.04.02.03")
+(define version-string "2022.04.03.01")
 
 (define flag-map (list
                     (list "-b" #f)
-                    (list "-n" #f)))
+                    (list "-n" #f)
+                    (list "-u" #f)))
 
 (define has-b-flag? (command-line-has-flag? "-b"))
 (define has-n-flag? (command-line-has-flag? "-n"))
