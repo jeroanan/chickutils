@@ -4,14 +4,25 @@
 (declare (uses file-util
                cmdline-util))
 
-(define version-string "2022.04.03.04")
+(define version-string "2022.04.03.05")
 
+;; Missing flags:
+;;   -A (show all)
+;;   -e (same as -vE)
+;;   -t (same as -vT)
+;;   -v (show nonprinting)
 (define flag-map (list
+                    ;; -b: number non-empty lines only.
                     (list "-b" #f)
+                    ;; -E: show end of lines as "$"
                     (list "-E" #f)
+                    ;; -l: number lines.
                     (list "-n" #f)
+                    ;; -s: supress multiple consecutive blank lines.
                     (list "-s" #f)
+                    ;; -T: show tabs as ^I
                     (list "-T" #f)
+                    ;; -u: ignored.
                     (list "-u" #f)))
 
 (define has-b-flag? (command-line-has-flag? "-b"))
