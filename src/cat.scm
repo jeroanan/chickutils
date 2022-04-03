@@ -3,15 +3,17 @@
 (declare (uses file-util
                cmdline-util))
 
-(define version-string "2022.04.03.02")
+(define version-string "2022.04.03.03")
 
 (define flag-map (list
                     (list "-b" #f)
+                    (list "-E" #f)
                     (list "-n" #f)
                     (list "-s" #f)
                     (list "-u" #f)))
 
 (define has-b-flag? (command-line-has-flag? "-b"))
+(define has-E-flag? (command-line-has-flag? "-E"))
 (define has-n-flag? (command-line-has-flag? "-n"))
 (define has-s-flag? (command-line-has-flag? "-s"))
 
@@ -33,9 +35,15 @@
       (sprintf "~A~A  ~A" spaces line-number line))
     line))
 
+(define (add-ending line-text)
+  (if has-E-flag?
+      (sprintf "~A~A" line-text "$")
+      line-text))
+      
 (define (print-line line-text line-number last-line-blank?)
   (unless (suppress-line? line-text last-line-blank?)
-    (print (format-with-line-number line-text line-number last-line-blank?))))
+    (print (add-ending 
+              (format-with-line-number line-text line-number last-line-blank?)))))
 
 (define (cat-file file-name)
   (let ([lines (file->lines file-name)]
