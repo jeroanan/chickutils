@@ -1,21 +1,24 @@
-(import (chicken format))
+(import (chicken format)
+        (chicken string))
 
 (declare (uses file-util
                cmdline-util))
 
-(define version-string "2022.04.03.03")
+(define version-string "2022.04.03.04")
 
 (define flag-map (list
                     (list "-b" #f)
                     (list "-E" #f)
                     (list "-n" #f)
                     (list "-s" #f)
+                    (list "-T" #f)
                     (list "-u" #f)))
 
 (define has-b-flag? (command-line-has-flag? "-b"))
 (define has-E-flag? (command-line-has-flag? "-E"))
 (define has-n-flag? (command-line-has-flag? "-n"))
 (define has-s-flag? (command-line-has-flag? "-s"))
+(define has-T-flag? (command-line-has-flag? "-T"))
 
 (define doing-numbering? (or has-b-flag? has-n-flag?))
 
@@ -39,11 +42,17 @@
   (if has-E-flag?
       (sprintf "~A~A" line-text "$")
       line-text))
+
+(define (show-tabs line-text)
+  (if has-T-flag?
+      (string-translate* line-text '(("\t" . "^I")))
+      line-text))
       
 (define (print-line line-text line-number last-line-blank?)
   (unless (suppress-line? line-text last-line-blank?)
-    (print (add-ending 
-              (format-with-line-number line-text line-number last-line-blank?)))))
+    (print (show-tabs 
+              (add-ending 
+                (format-with-line-number line-text line-number last-line-blank?))))))
 
 (define (cat-file file-name)
   (let ([lines (file->lines file-name)]
