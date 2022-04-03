@@ -33,8 +33,9 @@ $(BINDIR)/hostid: $(SRCDIR)/hostid.scm $(OBJDIR)/unistd.o
 $(BINDIR)/hostname: $(SRCDIR)/hostname.scm $(OBJDIR)/unistd.o
 	chicken-csc -o $(BINDIR)/hostname $(BUILDDIR)/hostname.scm $(OBJDIR)/unistd.o
 
-$(BINDIR)/id: $(SRCDIR)/id.scm $(OBJDIR)/unistd.o $(OBJDIR)/grp.o
-	chicken-csc -o $(BINDIR)/id $(BUILDDIR)/id.scm $(OBJDIR)/unistd.o $(OBJDIR)/grp.o
+$(BINDIR)/id: $(SRCDIR)/id.scm $(OBJDIR)/unistd.o $(OBJDIR)/grp.o $(OBJDIR)/cmdline-util.o
+	chicken-csc -o $(BINDIR)/id $(BUILDDIR)/id.scm $(OBJDIR)/unistd.o $(OBJDIR)/grp.o \
+		$(OBJDIR)/cmdline-util.o $(OBJDIR)/list-util.o
 
 $(BINDIR)/nl: $(SRCDIR)/nl.scm $(OBJDIR)/file-util.o $(OBJDIR)/list-util.o
 	chicken-csc -o $(BINDIR)/nl $(OBJDIR)/file-util.o $(BUILDDIR)/nl.scm $(OBJDIR)/list-util.o

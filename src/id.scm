@@ -1,5 +1,6 @@
-(declare (uses unistd)
-         (uses grp))
+(declare (uses cmdline-util)
+         (uses grp)
+         (uses unistd))
 
 (import (chicken format))
 
@@ -9,6 +10,8 @@
 (define group-name (get-group-name gid))
 (define number-of-groups (get-number-of-groups))
 (define groups (get-groups))
+
+(define version-string "2022.04.03.01")
 
 (define (group-id-list->string gids)
     (define (loop gids result)
@@ -20,6 +23,8 @@
                    [thisstr (format "~A(~A)" this-group group-name)])       
                 (loop (cdr gids) (format "~A~A~A" result sep thisstr)))))
     (loop gids ""))
+
+(maybe-print-version-and-quit version-string)
 
 (define group-ids (groups->list groups))
 (define group-string (group-id-list->string group-ids))
